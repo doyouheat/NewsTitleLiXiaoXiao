@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/mainBackground"
+    tools:context="lixiaoxiao.bwie.com.newstitlelixiaoxiao.activity.MainActivity">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frame"
+        android:background="?attr/mainBackground"
+        ></FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:layout_alignParentBottom="true"
+        android:background="?attr/mainBackground"
+        >
+        <RelativeLayout
+            android:id="@+id/rl_first"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="?attr/mainBackground"
+            >
+            <ImageView
+                android:id="@+id/iv_first"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/b_newhome_tabbar"
+                />
+            <TextView
+                android:id="@+id/tv_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_first"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="首页"
+            />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_second"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="?attr/mainBackground"
+            >
+            <ImageView
+                android:id="@+id/iv_second"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/b_newvideo_tabbar"
+                />
+            <TextView
+                android:id="@+id/tv_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_second"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="视频"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_third"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="?attr/mainBackground"
+            >
+            <ImageView
+                android:id="@+id/iv_third"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/b_newcare_tabbar"
+                />
+            <TextView
+                android:id="@+id/tv_third"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_third"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="关注"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_fourth"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="?attr/mainBackground"
+            >
+            <ImageView
+                android:id="@+id/iv_fourth"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/b_newnologin_tabbar"
+                />
+            <TextView
+                android:id="@+id/tv_fourth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_fourth"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="登录"
+                />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
