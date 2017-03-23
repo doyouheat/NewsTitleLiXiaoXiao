@@ -14,6 +14,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.utils.Log;
+
+import java.util.Map;
+
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.R;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.database.dao.Dao;
 
@@ -89,8 +98,18 @@ public class DetailsActivity extends AppCompatActivity {
                 break;
             case R.id.share:
 
+               /* new ShareAction(this).withText("hello")
+                        .setDisplayList(SHARE_MEDIA.QQ)
+                        .setCallback().open();*/
                 break;
         }
         return true;
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+
+    }
+
 }

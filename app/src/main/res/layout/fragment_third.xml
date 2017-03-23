@@ -9,7 +9,7 @@
         android:id="@+id/tit_head"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="我的收藏"
+        android:text="我的关注"
         android:gravity="center"
         android:textSize="30sp"
         android:textStyle="bold"
