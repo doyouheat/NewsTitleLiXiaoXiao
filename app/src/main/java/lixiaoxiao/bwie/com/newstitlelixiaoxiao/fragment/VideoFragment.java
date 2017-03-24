@@ -41,9 +41,10 @@ public class VideoFragment extends Fragment implements  PullToRefreshListView.On
     private String mParam1;
     private String mParam2;
     private View view;
-    private PullToRefreshListView pull;
+    private PullToRefreshListView pull_video;
    static  int   page=0;
     private MyVideoBaseAdapter adapter;
+    private String videoUrl;
 
     public VideoFragment() {
         // Required empty public constructor
@@ -70,37 +71,31 @@ public class VideoFragment extends Fragment implements  PullToRefreshListView.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_video, container, false);
+        videoUrl = HttpUtils.getVideoUrl(Integer.parseInt(mParam1), page+ "");
         getViews();
-        String videoUrl = HttpUtils.getVideoUrl(Integer.parseInt(mParam1), page+ "");
-        Utils.getHttpRes(getActivity(),videoUrl,this);
-
+       Utils.getHttpRes(getActivity(),videoUrl,this);
         return view;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-       // JCVideoPlayer.releaseAllVideos();
+      JCVideoPlayer.releaseAllVideos();
     }
 
     private void getViews() {
-        pull = (PullToRefreshListView) view.findViewById(R.id.pull);
-        pull = (PullToRefreshListView) view.findViewById(R.id.pull);
-        pull.setMode(PullToRefreshBase.Mode.BOTH);
-        pull.setOnRefreshListener(this);
+        pull_video = (PullToRefreshListView) view.findViewById(R.id.pull_video);
+        pull_video.setMode(PullToRefreshBase.Mode.BOTH);
+        pull_video.setOnRefreshListener(this);
     }
 
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-        page++;
-        String videoUrl = HttpUtils.getVideoUrl(Integer.parseInt(mParam1), page+ "");
-        Utils.getHttpRes(getActivity(),videoUrl,this);
 
     }
 
@@ -122,12 +117,13 @@ public class VideoFragment extends Fragment implements  PullToRefreshListView.On
                     beanList.add(tBean);
                 }
             }
-            Toast.makeText(getActivity(), ""+beanList.toString(), Toast.LENGTH_SHORT).show();
-            Log.i("beanList",beanList.toString());
-           // adapter = new MyVideoBaseAdapter(beanList, getActivity());
 
-           // pull.setAdapter(adapter);
-           // pull.onRefreshComplete();
+
+       adapter = new MyVideoBaseAdapter(beanList, getActivity());
+
+         pull_video.setAdapter(adapter);
+           adapter.notifyDataSetChanged();
+            pull_video.onRefreshComplete();
         } catch (Exception e) {
             e.printStackTrace();
         }

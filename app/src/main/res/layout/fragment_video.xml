@@ -7,7 +7,7 @@
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/pull"
+        android:id="@+id/pull_video"
         android:background="?attr/mainBackground"
         ></com.handmark.pulltorefresh.library.PullToRefreshListView>
 

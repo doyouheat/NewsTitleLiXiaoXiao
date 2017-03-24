@@ -51,21 +51,35 @@
 </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
-
-<android.support.design.widget.TabLayout
+<LinearLayout
+    android:id="@+id/tablin"
     android:layout_width="match_parent"
     android:layout_height="40dp"
     android:layout_below="@id/tit"
-    android:id="@+id/tablayout"
-    app:tabSelectedTextColor="@color/Red"
-    android:background="?attr/mainBackground"
-    ></android.support.design.widget.TabLayout>
+    android:orientation="horizontal"
+    >
+
+    <android.support.design.widget.TabLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/tablayout"
+        app:tabSelectedTextColor="@color/Red"
+        android:background="?attr/mainBackground"
+        ></android.support.design.widget.TabLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:textSize="30sp"
+        />
+</LinearLayout>
+
 
 <android.support.v4.view.ViewPager
     android:id="@+id/vp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_below="@id/tablayout"
+    android:layout_below="@id/tablin"
     android:background="?attr/mainBackground"
     ></android.support.v4.view.ViewPager>
 </RelativeLayout>

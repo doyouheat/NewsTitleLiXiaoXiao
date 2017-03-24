@@ -52,6 +52,7 @@ public class MyVideoBaseAdapter extends BaseAdapter {
         {
             v=new ViewHolder();
             convertView=View.inflate(context, R.layout.video_iteam_layout,null);
+            v.video_name= (TextView) convertView.findViewById(R.id.video_name);
            v.jiecao= (JCVideoPlayerStandard) convertView.findViewById(R.id.jiecao);
             v.name= (TextView) convertView.findViewById(R.id.name);
             v.play_count= (TextView) convertView.findViewById(R.id.play_count);
@@ -61,20 +62,21 @@ public class MyVideoBaseAdapter extends BaseAdapter {
         }else {
             v= (ViewHolder) convertView.getTag();
         }
-        boolean b = v.jiecao.setUp(list.get(position).getMp4_url(), JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
+        v.video_name.setText(list.get(position).getTitle());
+      boolean b = v.jiecao.setUp(list.get(position).getMp4_url(), JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
         if (b){
             ImageLoader.getInstance().displayImage(list.get(position).getCover(),v.jiecao.thumbImageView);
         }
         v.name.setText(list.get(position).getTopicName());
         v.play_count.setText(list.get(position).getPtime());
         v.iv.setImageResource(R.mipmap.tab_comment);
-        v.count.setText(list.get(position).getLength());
+        v.count.setText(list.get(position).getLength()+"");
         return   convertView;
     }
 
     static   class   ViewHolder{
            JCVideoPlayerStandard  jiecao;
-           TextView  name,play_count,count;
+           TextView  video_name,name,play_count,count;
         ImageView  iv;
     }
 }

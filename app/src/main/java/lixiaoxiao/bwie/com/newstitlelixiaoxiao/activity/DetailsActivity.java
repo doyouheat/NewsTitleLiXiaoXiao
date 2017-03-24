@@ -24,6 +24,7 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 import com.umeng.socialize.utils.Log;
 
 import java.util.Map;
@@ -103,10 +104,15 @@ public class DetailsActivity extends AppCompatActivity {
                 break;
             case R.id.share:
                 UMImage image = new UMImage(DetailsActivity.this, imageurl);//网络图片
+                UMWeb web = new UMWeb(url);
+                web.setTitle(name);//标题
+                web.setDescription("Do you heat");//描述
+
                 new ShareAction(DetailsActivity.this)
                         .withText("hello")
                         .withMedia(image)
-                        .setDisplayList(SHARE_MEDIA.QQ)
+                        .withMedia(web)
+                        .setDisplayList(SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN)
                         .setCallback(umShareListener)
                         .open();
                 break;

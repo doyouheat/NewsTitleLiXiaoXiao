@@ -68,9 +68,9 @@ public class SecondFragment extends Fragment {
         }
     }
     private void getViews() {
-        tab = (TabLayout) view.findViewById(R.id.tablayout);
-        tab.setTabMode(TabLayout.MODE_SCROLLABLE);
-        vp = (ViewPager) view.findViewById(R.id.vp);
+            tab = (TabLayout) view.findViewById(R.id.tablayout2);
+            tab.setTabMode(TabLayout.MODE_SCROLLABLE);
+            vp = (ViewPager) view.findViewById(R.id.vp2);
 
     }
     private void setAdapter() {
