@@ -12,6 +12,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.List;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.R;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.bean.VideoBean;
 
@@ -51,7 +52,7 @@ public class MyVideoBaseAdapter extends BaseAdapter {
         {
             v=new ViewHolder();
             convertView=View.inflate(context, R.layout.video_iteam_layout,null);
-           v.jiecao= (JCVideoPlayer) convertView.findViewById(R.id.jiecao);
+           v.jiecao= (JCVideoPlayerStandard) convertView.findViewById(R.id.jiecao);
             v.name= (TextView) convertView.findViewById(R.id.name);
             v.play_count= (TextView) convertView.findViewById(R.id.play_count);
             v.iv= (ImageView) convertView.findViewById(R.id.iv);
@@ -60,9 +61,10 @@ public class MyVideoBaseAdapter extends BaseAdapter {
         }else {
             v= (ViewHolder) convertView.getTag();
         }
-     v.jiecao.setUp(list.get(position).getMp4_url(),list.get(position).getTitle());
-        ImageView view = v.jiecao.ivThumb;
-        ImageLoader.getInstance().displayImage(list.get(position).getCover(),view);
+        boolean b = v.jiecao.setUp(list.get(position).getMp4_url(), JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
+        if (b){
+            ImageLoader.getInstance().displayImage(list.get(position).getCover(),v.jiecao.thumbImageView);
+        }
         v.name.setText(list.get(position).getTopicName());
         v.play_count.setText(list.get(position).getPtime());
         v.iv.setImageResource(R.mipmap.tab_comment);
@@ -71,7 +73,7 @@ public class MyVideoBaseAdapter extends BaseAdapter {
     }
 
     static   class   ViewHolder{
-           JCVideoPlayer   jiecao;
+           JCVideoPlayerStandard  jiecao;
            TextView  name,play_count,count;
         ImageView  iv;
     }

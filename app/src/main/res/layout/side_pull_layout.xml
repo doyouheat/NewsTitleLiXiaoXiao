@@ -24,6 +24,7 @@
             android:id="@+id/iv_head"
             android:layout_marginLeft="80dp"
             android:layout_gravity="center"
+            android:background="@drawable/head_portrait"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -180,7 +181,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="邀请好友得200元现金奖励"
                 android:textSize="12sp"
                 android:layout_toRightOf="@+id/tv2"
                 android:layout_centerVertical="true"
@@ -216,7 +216,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="新人领188元红包"
                 android:textSize="12sp"
                 android:layout_toRightOf="@+id/tv3"
                 android:layout_centerVertical="true"

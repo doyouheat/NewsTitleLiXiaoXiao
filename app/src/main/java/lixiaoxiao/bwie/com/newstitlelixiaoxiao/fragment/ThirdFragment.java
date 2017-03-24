@@ -3,7 +3,10 @@ package lixiaoxiao.bwie.com.newstitlelixiaoxiao.fragment;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +21,13 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.R;
+import lixiaoxiao.bwie.com.newstitlelixiaoxiao.activity.DetailsActivity;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.adapter.MyThiredAdapter;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.bean.News;
+import lixiaoxiao.bwie.com.newstitlelixiaoxiao.bean.NewsTitle;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.database.dao.Dao;
+
+import static com.jeremyfeinstein.slidingmenu.lib.R.attr.title;
 
 public class ThirdFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -61,6 +68,17 @@ public class ThirdFragment extends Fragment {
         adapter = new MyThiredAdapter(list, getActivity());
         springListener();
         lv.setAdapter(adapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=     new Intent(getActivity(), DetailsActivity.class);
+                News  news = (News) adapter.getItem(position);
+                intent.putExtra("name",news.getName());
+                intent.putExtra("url",news.getUrl());
+                intent.putExtra("imageurl",news.getImageurl());
+                startActivity(intent);
+            }
+        });
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -95,7 +113,11 @@ public class ThirdFragment extends Fragment {
         });
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        setAdapter();
+    }
 
     private void infoView() {
         dao = new Dao(getActivity());
@@ -105,28 +127,32 @@ public class ThirdFragment extends Fragment {
         spring.setHeader(new DefaultHeader(getActivity()));
         spring.setFooter(new DefaultFooter(getActivity()));
     }
+
+
+
   public  void  springListener(){
       spring.setListener(new SpringView.OnFreshListener() {
           @Override
           public void onRefresh() {
-              adapter.notifyDataSetChanged();
-              new Timer().schedule(new TimerTask() {
+              new Handler().postDelayed(new Runnable() {
                   @Override
                   public void run() {
+                      setAdapter();
                       spring.onFinishFreshAndLoad();
                   }
-              },0,2000);
+              }, 2000);
           }
 
           @Override
           public void onLoadmore() {
-              adapter.notifyDataSetChanged();
-              new Timer().schedule(new TimerTask() {
+
+              new Handler().postDelayed(new Runnable() {
                   @Override
                   public void run() {
+                      setAdapter();
                       spring.onFinishFreshAndLoad();
                   }
-              },0,2000);
+              }, 2000);
           }
       });
   }

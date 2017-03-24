@@ -83,6 +83,7 @@ public class HomeFragment extends Fragment implements PullToRefreshListView.OnRe
         });
         return  view;
     }
+
     private void getViews() {
         pull = (PullToRefreshListView) view.findViewById(R.id.pull);
         pull.setMode(PullToRefreshBase.Mode.BOTH);

@@ -1,8 +1,11 @@
 package lixiaoxiao.bwie.com.newstitlelixiaoxiao.activity;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +21,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.utils.Log;
 
 import java.util.Map;
@@ -97,10 +102,13 @@ public class DetailsActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.share:
-
-               /* new ShareAction(this).withText("hello")
+                UMImage image = new UMImage(DetailsActivity.this, imageurl);//网络图片
+                new ShareAction(DetailsActivity.this)
+                        .withText("hello")
+                        .withMedia(image)
                         .setDisplayList(SHARE_MEDIA.QQ)
-                        .setCallback().open();*/
+                        .setCallback(umShareListener)
+                        .open();
                 break;
         }
         return true;
@@ -112,4 +120,28 @@ public class DetailsActivity extends AppCompatActivity {
 
     }
 
+    //分享监听
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+            //分享开始的回调
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Log.d("plat", "platform" + platform);
+            Toast.makeText(DetailsActivity.this, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+        }
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(DetailsActivity.this, platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+            if (t != null) {
+                Log.d("throw", "throw:" + t.getMessage());
+            }
+        }
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(DetailsActivity.this, platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+        }
+    };
 }

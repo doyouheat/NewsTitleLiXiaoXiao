@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,11 +122,12 @@ public class VideoFragment extends Fragment implements  PullToRefreshListView.On
                     beanList.add(tBean);
                 }
             }
+            Toast.makeText(getActivity(), ""+beanList.toString(), Toast.LENGTH_SHORT).show();
+            Log.i("beanList",beanList.toString());
+           // adapter = new MyVideoBaseAdapter(beanList, getActivity());
 
-            adapter = new MyVideoBaseAdapter(beanList, getActivity());
-
-            pull.setAdapter(adapter);
-            pull.onRefreshComplete();
+           // pull.setAdapter(adapter);
+           // pull.onRefreshComplete();
         } catch (Exception e) {
             e.printStackTrace();
         }
