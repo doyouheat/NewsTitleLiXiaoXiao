@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.R;
 
 public class FirstFragment extends Fragment {
-
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
    String[]  titname=new String[]{"社会","娱乐","科技","财经","电影","笑话","时尚","情感","旅游","军事","亲子","游戏"};
@@ -25,10 +24,7 @@ public class FirstFragment extends Fragment {
     private TabLayout tab;
     private ViewPager vp;
     public FirstFragment() {
-        // Required empty public constructor
     }
-
-
     public static FirstFragment newInstance(String param1, String param2) {
         FirstFragment fragment = new FirstFragment();
         Bundle args = new Bundle();
@@ -37,7 +33,6 @@ public class FirstFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

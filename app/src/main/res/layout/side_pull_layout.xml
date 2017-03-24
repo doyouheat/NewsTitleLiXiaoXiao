@@ -17,14 +17,12 @@
         android:orientation="horizontal"
         android:background="?attr/mainBackground"
         >
-
-        <ImageView
+        <lixiaoxiao.bwie.com.newstitlelixiaoxiao.custom.CustomImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/iv_head"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="60dp"
             android:layout_gravity="center"
-            android:background="@drawable/head_portrait"
             />
         <TextView
             android:layout_width="wrap_content"

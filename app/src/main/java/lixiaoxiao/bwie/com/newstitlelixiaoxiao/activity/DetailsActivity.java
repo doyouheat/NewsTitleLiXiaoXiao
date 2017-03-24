@@ -109,7 +109,7 @@ public class DetailsActivity extends AppCompatActivity {
                 web.setDescription("Do you heat");//描述
 
                 new ShareAction(DetailsActivity.this)
-                        .withText("hello")
+                        .withText("Do you heat")
                         .withMedia(image)
                         .withMedia(web)
                         .setDisplayList(SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN)

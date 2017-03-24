@@ -89,17 +89,12 @@ public class HomeFragment extends Fragment implements PullToRefreshListView.OnRe
         pull.setMode(PullToRefreshBase.Mode.BOTH);
         pull.setOnRefreshListener(this);
         url = HttpUtils.getUrl(Integer.parseInt(mParam1), page + "");
-
     }
     @Override
-    public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-       adapter.notifyDataSetChanged();
-    }
+    public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {    }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-
-    adapter.notifyDataSetChanged();
     }
 
     @Override
