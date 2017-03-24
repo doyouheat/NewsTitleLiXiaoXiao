@@ -51,12 +51,10 @@ public class CustomImageView extends ImageView{
             final Rect rectDest = new Rect(0, 0, getWidth(), getHeight());
             paint.reset();
             canvas.drawBitmap(b, rectSrc, rectDest, paint);
-
         } else {
             super.onDraw(canvas);
         }
     }
-
     /**
      * 获取圆形图片方法
      *

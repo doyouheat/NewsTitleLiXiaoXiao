@@ -19,18 +19,17 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.Log;
-
 import java.util.ArrayList;
 import java.util.Map;
-
+import cn.jpush.android.api.JPushInterface;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.R;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.fragment.FirstFragment;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.fragment.FourthFragment;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.fragment.SecondFragment;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.fragment.ThirdFragment;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.networkinfo.networkinfo.NetWorkInfo;
+
 public  class MainActivity extends FragmentActivity implements View.OnClickListener {
     static int num = 0;
     int[] image = new int[]{R.mipmap.new_home_image, R.mipmap.b_newvideo_tabbar_press, R.mipmap.b_newcare_tabbar_press, R.mipmap.b_newnologin_tabbar_press};
@@ -53,6 +52,7 @@ public  class MainActivity extends FragmentActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //恢复数据 做判空
         if (savedInstanceState != null) {
@@ -60,17 +60,35 @@ public  class MainActivity extends FragmentActivity implements View.OnClickListe
             //设置主题 此方法必须在setContentView()之前调用
             setTheme(theme);
         }
+
         setContentView(R.layout.activity_main);
+
+        //推送
+        jPush();
+
+        //侧拉菜单
         SlidingMenu slidingMenu= new SlidingMenu(this);
         setSlidingMenu(slidingMenu);
+
+        //判断网络连接
         judgement();
+        //初始化控件
         getViews();
+        //设置button颜色
         setColor(num);
         if (first== null) {
             first= new FirstFragment();
         }
         setFragment(first);
     }
+
+    private void jPush() {
+        //初始化jpush
+        JPushInterface.init(this);
+        //设置debug模式
+        JPushInterface.setDebugMode(true);
+    }
+
     //侧拉页面
     private void setSlidingMenu(SlidingMenu slidingMenu) {
         //设置侧滑方向
@@ -94,6 +112,7 @@ public  class MainActivity extends FragmentActivity implements View.OnClickListe
             }
         });
         shareAPI = UMShareAPI.get(MainActivity.this);
+        //设置QQ登录
         nick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

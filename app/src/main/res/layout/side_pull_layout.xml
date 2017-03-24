@@ -269,22 +269,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:text="用户反馈"
+                android:text="注销登录"
                 android:textSize="20sp"
                 android:textColor="@color/black"
                 android:gravity="center"
                 android:layout_marginLeft="10dp"
                 android:id="@+id/tv5"
                 />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="18dp"
-                android:src="@mipmap/arrow_all_normal"
-
-                android:id="@+id/iv8"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
         </RelativeLayout>
 
         <RelativeLayout
