@@ -24,7 +24,6 @@ import lixiaoxiao.bwie.com.newstitlelixiaoxiao.bean.News;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.database.dao.Dao;
 
 public class CollectionActivity extends AppCompatActivity {
-
     private Dao dao;
     private SpringView spr;
     private ListView lv;
