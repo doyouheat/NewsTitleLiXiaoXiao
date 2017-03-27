@@ -3,7 +3,7 @@
     android:shape="rectangle" >
 
     <!-- 背景色 -->
-    <solid android:color="@color/white" />
+    <solid android:color="@color/transparent" />
 
     <!-- 角,可以单独设置每个角的弧度 -->
     <corners android:radius="1px" />

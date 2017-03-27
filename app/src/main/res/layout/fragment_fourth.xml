@@ -29,6 +29,7 @@
                 android:id="@+id/phone_login"
                 >
                 <ImageView
+                    android:id="@+id/sms"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:src="@mipmap/cellphoneicon_login_profile"

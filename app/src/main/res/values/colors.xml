@@ -13,7 +13,7 @@
     <color name="gray_write">#f1f1d7</color>
     <color name="black">#fe000000</color>
     <color name="gold">#fedcbf2c</color>
-
+    <color name="transparent">#00000000</color>
     <color name="nightColorPrimary">#3b3b3b</color>
     <color name="nightColorPrimaryDark">#383838</color>
     <color name="nightColorAccent">#a72b55</color>

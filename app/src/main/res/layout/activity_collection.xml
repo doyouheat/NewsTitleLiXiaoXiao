@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:id="@+id/rl"
+    android:background="@color/redDark"
+    >
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/iv_back"
+        android:src="@mipmap/all_arrow_unlike"
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:id="@+id/tit_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我的关注"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        />
+</RelativeLayout>
+    <com.liaoinstan.springview.widget.SpringView
+        android:layout_below="@id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/spr"
+        >
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lv_collection"
+            ></ListView>
+    </com.liaoinstan.springview.widget.SpringView>
+</RelativeLayout>

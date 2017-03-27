@@ -1,8 +1,8 @@
 package lixiaoxiao.bwie.com.newstitlelixiaoxiao.fragment;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,12 +16,11 @@ import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.shareboard.SnsPlatform;
-
 import java.util.ArrayList;
 import java.util.Map;
-
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.R;
-import lixiaoxiao.bwie.com.newstitlelixiaoxiao.activity.QQLoginActivity;
+import lixiaoxiao.bwie.com.newstitlelixiaoxiao.activity.CollectionActivity;
+import lixiaoxiao.bwie.com.newstitlelixiaoxiao.activity.SignActivity;
 public class FourthFragment extends Fragment implements View.OnClickListener{
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -35,13 +34,6 @@ public class FourthFragment extends Fragment implements View.OnClickListener{
     private RelativeLayout qq_login;
     private ImageView more_login;
     private RelativeLayout collect;
-    private UMAuthListener authListener;
-
-
-    public FourthFragment() {
-        // Required empty public constructor
-    }
-
     public static FourthFragment newInstance(String param1, String param2) {
         FourthFragment fragment = new FourthFragment();
         Bundle args = new Bundle();
@@ -92,22 +84,22 @@ public class FourthFragment extends Fragment implements View.OnClickListener{
         switch (v.getId())
         {
             case R.id.phone_login:
-                Toast.makeText(getActivity(), "暂为实现", Toast.LENGTH_SHORT).show();
+               startActivity(new Intent(getActivity(),SignActivity.class));
                 break;
             case R.id.weixin_login:
                 break;
             case R.id.QQ_login:
-                Toast.makeText(getActivity(), ""+"QQ登录", Toast.LENGTH_SHORT).show();
-                initPlatforms();
                 loginM();
                 break;
             case R.id.more_login:
                 break;
             case R.id.collect:
+                startActivity(new Intent(getActivity(), CollectionActivity.class));
                 break;
             case R.id.history:
                 break;
             case R.id.night:
+
                 break;
             case R.id.message:
                 Toast.makeText(getActivity(), "暂为实现", Toast.LENGTH_SHORT).show();
@@ -121,35 +113,16 @@ public class FourthFragment extends Fragment implements View.OnClickListener{
             case R.id.couple_back:
                 break;
             case R.id.preferences:
+                startActivity(new Intent(Settings.ACTION_SETTINGS));
                 break;
         }
     }
     private void loginM() {
-        //登录
-        final boolean isauth = UMShareAPI.get(getActivity()).isAuthorize(getActivity(), platforms.get(0).mPlatform);
-        if (isauth) {
-            Toast.makeText(getActivity(), "授权成功", Toast.LENGTH_SHORT).show();
-            UMShareAPI.get(getActivity()).deleteOauth(getActivity(), platforms.get(0).mPlatform, authListener);
-        } else {
-            Toast.makeText(getActivity(), "登录成功", Toast.LENGTH_SHORT).show();
-            UMShareAPI.get(getActivity()).doOauthVerify(getActivity(), platforms.get(0).mPlatform, authListener);
-        }
-        UMShareAPI.get(getActivity()).getPlatformInfo(getActivity(), platforms.get(0).mPlatform, authListener);
+        UMShareAPI shareAPI = UMShareAPI.get(getActivity());
+        shareAPI.doOauthVerify(getActivity(),SHARE_MEDIA.QQ, authListener);
     }
-    private void initPlatforms() {
-        for (SHARE_MEDIA e : list) {
-            if (!e.toString().equals(SHARE_MEDIA.GENERIC.toString())) {
-                platforms.add(e.toSnsPlatform());
-            }
 
-
-            //授权监听
-            // SocializeUtils.safeShowDialog(dialog);
-//  SocializeUtils.safeCloseDialog(dialog);
-//Log.i("xxx", data.toString());
-//SocializeUtils.safeCloseDialog(dialog);
-//  SocializeUtils.safeCloseDialog(dialog);
-                 authListener = new UMAuthListener() {
+       public  UMAuthListener   authListener = new UMAuthListener() {
                 @Override
                 public void onStart(SHARE_MEDIA platform) {
                     // SocializeUtils.safeShowDialog(dialog);
@@ -186,5 +159,3 @@ public class FourthFragment extends Fragment implements View.OnClickListener{
                 }
             };
         }
-    }
-}

@@ -8,6 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -23,6 +26,8 @@ public class FirstFragment extends Fragment {
     private View view;
     private TabLayout tab;
     private ViewPager vp;
+    private TextView more;
+
     public FirstFragment() {
     }
     public static FirstFragment newInstance(String param1, String param2) {
@@ -75,13 +80,17 @@ public class FirstFragment extends Fragment {
             fmlist.add(new HomeFragment());
         }
     }
-
-
     private void getViews() {
         tab = (TabLayout) view.findViewById(R.id.tablayout);
         tab.setTabMode(TabLayout.MODE_SCROLLABLE);
         vp = (ViewPager) view.findViewById(R.id.vp);
+        more = (TextView) view.findViewById(R.id.more);
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
     }
 
 }

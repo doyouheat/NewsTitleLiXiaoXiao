@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -19,9 +20,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.Log;
+
 import java.util.ArrayList;
 import java.util.Map;
+
 import cn.jpush.android.api.JPushInterface;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.R;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.fragment.FirstFragment;
@@ -29,7 +33,6 @@ import lixiaoxiao.bwie.com.newstitlelixiaoxiao.fragment.FourthFragment;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.fragment.SecondFragment;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.fragment.ThirdFragment;
 import lixiaoxiao.bwie.com.newstitlelixiaoxiao.networkinfo.networkinfo.NetWorkInfo;
-
 public  class MainActivity extends FragmentActivity implements View.OnClickListener {
     static int num = 0;
     int[] image = new int[]{R.mipmap.new_home_image, R.mipmap.b_newvideo_tabbar_press, R.mipmap.b_newcare_tabbar_press, R.mipmap.b_newnologin_tabbar_press};
@@ -49,6 +52,9 @@ public  class MainActivity extends FragmentActivity implements View.OnClickListe
     private TextView nick;
     private UMShareAPI shareAPI;
     private ImageView iv_head;
+    private RelativeLayout preferences;
+    private RelativeLayout couple_back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,17 +66,11 @@ public  class MainActivity extends FragmentActivity implements View.OnClickListe
             //设置主题 此方法必须在setContentView()之前调用
             setTheme(theme);
         }
-
         setContentView(R.layout.activity_main);
-
         //推送
         jPush();
-
-        //侧拉菜单
         SlidingMenu slidingMenu= new SlidingMenu(this);
         setSlidingMenu(slidingMenu);
-
-        //判断网络连接
         judgement();
         //初始化控件
         getViews();
@@ -102,23 +102,14 @@ public  class MainActivity extends FragmentActivity implements View.OnClickListe
         night = (RelativeLayout) findViewById(R.id.night);
         nick = (TextView) findViewById(R.id.nick);
         iv_head = (ImageView) findViewById(R.id.iv_head);
-        night.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //切换日夜间模式
-                theme = (theme == R.style.AppTheme) ? R.style.NightAppTheme : R.style.AppTheme;
-                //重新创建
-                recreate();
-            }
-        });
+        preferences = (RelativeLayout) findViewById(R.id.preferences);
+        couple_back = (RelativeLayout) findViewById(R.id.couple_back);
+        couple_back.setOnClickListener(this);
+        preferences.setOnClickListener(this);
+        night.setOnClickListener(this);
         shareAPI = UMShareAPI.get(MainActivity.this);
-        //设置QQ登录
-        nick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               shareAPI.doOauthVerify(MainActivity.this,SHARE_MEDIA.QQ, umAuthListener);
-            }
-        });
+        nick.setOnClickListener(this);
+        iv_head.setOnClickListener(this);
     }
 
     //保存数据
@@ -142,7 +133,6 @@ public  class MainActivity extends FragmentActivity implements View.OnClickListe
 
         }else{
             Toast.makeText(this, "连接网络更精彩", Toast.LENGTH_SHORT).show();
-
         }
     }
 
@@ -210,7 +200,26 @@ public  class MainActivity extends FragmentActivity implements View.OnClickListe
                 setFragment(fourth);
                 setColor(3);
                 break;
-
+            case  R.id.night:
+                //切换日夜间模式
+                theme = (theme == R.style.AppTheme) ? R.style.NightAppTheme : R.style.AppTheme;
+                //重新创建
+                recreate();
+                break;
+            case R.id.nick:
+                shareAPI.doOauthVerify(MainActivity.this,SHARE_MEDIA.QQ, umAuthListener);
+                break;
+            case R.id.iv_head:
+                Intent intent = new Intent(); //调用照相机
+                intent.setAction("android.media.action.STILL_IMAGE_CAMERA");
+                startActivity(intent);
+                break;
+            case R.id.preferences:
+                startActivity(new Intent(Settings.ACTION_SETTINGS));
+                break;
+            case   R.id.couple_back:
+                shareAPI.deleteOauth(MainActivity.this,SHARE_MEDIA.QQ, umAuthListener);
+                break;
         }
     }
 
@@ -238,7 +247,6 @@ public  class MainActivity extends FragmentActivity implements View.OnClickListe
             }
         }
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -253,7 +261,6 @@ public  class MainActivity extends FragmentActivity implements View.OnClickListe
         }
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-            Toast.makeText(getApplicationContext(), "Authorize succeed", Toast.LENGTH_SHORT).show();
             shareAPI .getPlatformInfo(MainActivity.this, SHARE_MEDIA.QQ,new MyUMListener());
         }
 
@@ -267,33 +274,8 @@ public  class MainActivity extends FragmentActivity implements View.OnClickListe
             Toast.makeText( getApplicationContext(), "Authorize cancel", Toast.LENGTH_SHORT).show();
         }
     };
-    public  UMAuthListener umListener = new UMAuthListener() {
-        @Override
-        public void onStart(SHARE_MEDIA platform) {
-            //授权开始的回调
-        }
-        @Override
-        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-            Log.i("-----", data.toString());
-            Toast.makeText(MainActivity.this, ""+data.toString(), Toast.LENGTH_SHORT).show();
-            String iconurL = data.get("iconurl");
-            String name = data.get("name");
-            ImageLoader.getInstance().displayImage(iconurL,iv_head);
-            nick.setText(name);
-        }
 
-        @Override
-        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            Toast.makeText( getApplicationContext(), "Authorize fail", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onCancel(SHARE_MEDIA platform, int action) {
-            Toast.makeText( getApplicationContext(), "Authorize cancel", Toast.LENGTH_SHORT).show();
-        }
-    };
-
- public  class  MyUMListener implements UMAuthListener{
+    public  class  MyUMListener implements UMAuthListener{
 
 
      @Override
@@ -303,8 +285,6 @@ public  class MainActivity extends FragmentActivity implements View.OnClickListe
 
      @Override
      public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
-         Log.i("-----", map.toString());
-         Toast.makeText(MainActivity.this, ""+map.toString(), Toast.LENGTH_SHORT).show();
          String iconurL = map.get("iconurl");
          String name = map.get("name");
          ImageLoader.getInstance().displayImage(iconurL,iv_head);
