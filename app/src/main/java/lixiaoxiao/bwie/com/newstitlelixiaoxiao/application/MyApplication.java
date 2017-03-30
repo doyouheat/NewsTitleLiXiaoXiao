@@ -7,6 +7,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
+import org.xutils.x;
+
 /**
  * 1. 类的用途
  * 2. @author : do  you  heat
@@ -22,6 +24,8 @@ public class MyApplication  extends Application {
     public void onCreate() {
         super.onCreate();
         UMShareAPI.get(this);
+        x.Ext.init(this);
+        x.Ext.setDebug(true);
         ImageLoaderConfiguration icf = ImageLoaderConfiguration.createDefault(this);
         ImageLoader.getInstance().init(icf);
         ImageLoaderConfiguration build = new ImageLoaderConfiguration.Builder(this).build();

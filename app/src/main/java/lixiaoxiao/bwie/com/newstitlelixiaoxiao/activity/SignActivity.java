@@ -21,7 +21,7 @@ public class SignActivity extends AppCompatActivity {
         RegisterPage registerPage = new RegisterPage();
         registerPage.setRegisterCallback(new EventHandler() {
             public void afterEvent(int event, int result, Object data) {
-// 解析注册结果
+         // 解析注册结果
                 if (result == SMSSDK.RESULT_COMPLETE) {
                     @SuppressWarnings("unchecked")
                     HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;

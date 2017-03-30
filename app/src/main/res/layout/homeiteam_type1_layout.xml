@@ -6,10 +6,6 @@
     android:background="?attr/mainBackground"
 
     >
-
-
-
-
     <LinearLayout
         android:id="@+id/lin"
         android:layout_width="match_parent"
@@ -60,6 +56,7 @@
             android:layout_height="match_parent"
             android:id="@+id/iv"
             />
+
     </LinearLayout>
 
 
